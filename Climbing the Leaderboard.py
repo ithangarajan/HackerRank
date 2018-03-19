@@ -3,18 +3,28 @@
 import sys
 
 def climbingLeaderboard(scores, alice):
-    rank_list=[1]
     rank=1
-    counter=1
-    while (True):
-        if scores[counter-1] == scores[counter]:
-            rank_list.append(rank)
-            counter = counter + 1
+    rank_list=[1]
+    answer=[]
+    for x in range(1,len(scores)):
+        if scores[x]==scores[x-1]:
+            rank_list.append(rank_list[x-1])
         else:
-            rank_list.append(rank)
             rank=rank+1
-            counter=counter+1
-
+            rank_list.append(rank)
+    for x in range(0,len(alice)):
+        flag=0
+        for y in range(0,len(scores)):
+            if (alice[x]>=scores[y]):
+                answer.append(rank_list[y])
+                flag=1
+                break
+        if flag==0:
+            if alice[x]==scores[-1]:
+                answer.append(rank_list[-1])
+            else:
+                answer.append(rank_list[-1]+1)
+    return answer
 
 
 if __name__ == "__main__":
